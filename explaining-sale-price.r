@@ -39,3 +39,16 @@ p.errors <- ggplot(comparables) +
   annotate('text', label = 'Model estimate\nis better.', y = c(-1e6, 1e6), x = 0, color = 'red') +
   annotate('text', label = 'Comparable estimate\nis better.', x = c(-1e6, 1e6), y = 0, color = 'red') +
   geom_point()
+
+.annotation.label <- paste('The', c('model','comparable'), 'estimate is\ncloser to the sale price\nfor these properties.')
+p.error.differences <- ggplot(comparables) +
+  aes(x = (abs(comparables$comparable.error) - abs(comparables$model.error))) +
+  scale_x_continuous('Difference between absolute comparable error and absolute model error', labels = dollar) +
+  geom_histogram(binwidth = 1e5) +
+  geom_vline(xintercept = 0, color = 'red', size = 2) +
+  ylab('Number of properties') +
+  annotate('text', label = .annotation.label, x = 3e5 * c(-1,1), y = 50, color = 'red', size = 10, hjust = c(1,0))
+
+# Test for a difference from zero
+test.1 <- t.test(abs(comparables$model.error) - abs(comparables$comparable.error))
+test.2 <- wilcox.test(abs(comparables$model.error) - abs(comparables$comparable.error))
