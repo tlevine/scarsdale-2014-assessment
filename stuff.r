@@ -11,7 +11,7 @@ library(scarsdale)
 
 if (!('comparables' %in% ls())) {
   comparables <- query('
-SELECT RV_SALE_COMP.PROP_NBR, SALE_PRICE, RV_SALE_COMP.MODEL_EST, SALE_MINUS_MODEL
+SELECT * -- SELECT RV_SALE_COMP.PROP_NBR, SALE_PRICE, RV_SALE_COMP.MODEL_EST, SALE_MINUS_MODEL
 FROM RV_SALE_COMP
 JOIN RV_PROP_MAIN
 WHERE RV_SALE_COMP.MODEL_EST IS NOT NULL
@@ -39,21 +39,14 @@ p5 <- ggplot(comparables.vars) +
   scale_x_continuous(labels = dollar, breaks = seq(-1e7, 1e7, 1e6))
 
 
-# 1. What is the r^2 value of their model?
-answer.1 <- cor(comparables$MODEL_EST, comparables$SALE_PRICE)
+residual.null <- lm(log(SALE_PRICE) ~ 1, data = comparables)
+residual.homoskedastic <- lm(log(SALE_PRICE) ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND, data = comparables)
+a <- anova(residual.null, residual.homoskedastic)
+
+robust.residual.homoskedastic <- rlm(log(SALE_PRICE) ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND, data = comparables)
 
 
+plot(m$fitted.values, comparables$SALE_MINUS_MODEL, asp = 1, ylab = 'Actual difference between sale and model price', xlab = 'Predicted difference between sale and model price, based on characteristics of the house', main = 'The differences that we can explain with house characteristics are tiny compared to the actual differences.')
 
 
-# 2. Does their model fit the data well?
-
-
-
-
-
-# 3. How are the sale prices and model estimates distributed?
-# 3.1. Assuming normal distributions
-mean(comparables$MODEL_EST)
-mean(comparables$SALE_PRICE)
-sd(comparables$MODEL_EST)
-sd(comparables$SALE_PRICE)
+m$fitted.values, comparables$SALE_MINUS_MODEL,
