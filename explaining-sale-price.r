@@ -59,7 +59,6 @@ p.error.ratios <- ggplot(comparables) +
   scale_x_continuous('Proportion of sale price that is the model error', labels = percent) +
   scale_y_continuous('Proportion of sale price that is the comparable error', labels = percent)
 
-
 cor(comparables[c('model.estimate','comparable.estimate','sale.price')], method = 'spearman')
 
 # Test for a difference from zero on average/median
