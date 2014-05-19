@@ -43,7 +43,7 @@ p.errors <- ggplot(comparables) +
 
 .annotation.label <- paste('The', c('model','comparable'), 'estimate is\ncloser to the sale price\nfor these properties.')
 p.error.differences <- ggplot(comparables) +
-  aes(x = (abs(comparables$comparable.error) - abs(comparables$model.error))) +
+  aes(x = (abs(comparable.error) - abs(model.error))) +
   scale_x_continuous('Difference between absolute comparable error and absolute model error', labels = dollar) +
   geom_histogram(binwidth = 1e5) +
   geom_vline(xintercept = 0, color = 'red', size = 2) +
