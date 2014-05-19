@@ -20,27 +20,5 @@ WHERE RV_SALE_COMP.MODEL_EST IS NOT NULL
 ;')
 }
 
-comparables.vars <- melt(comparables, id.vars = 'PROP_NBR')
-
-
-# Exploring
-p1 <- ggplot(comparables) + aes(x = SALE_PRICE) + geom_histogram()
-p2 <- ggplot(comparables) + aes(x = MODEL_EST) + geom_histogram()
-p3 <- ggplot(comparables) + aes(x = (SALE_PRICE - MODEL_EST)) + geom_histogram() +
-  scale_x_continuous(labels = dollar)
-p4 <- ggplot(comparables) +
-  aes(x = MODEL_EST, y = SALE_PRICE) + geom_point() +
-  scale_x_continuous(labels = dollar)
-
-p5 <- ggplot(comparables.vars) +
-  aes(x = value) +
-  facet_wrap(~ variable, ncol = 1) +
-  geom_histogram() +
-  scale_x_continuous(labels = dollar, breaks = seq(-1e7, 1e7, 1e6))
-
-
-
-# Real stuff
 m <- lm(SALE_MINUS_MODEL ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND, data = comparables)
 plot(comparables$SALE_MINUS_MODEL ~ m$fitted.values, asp = 1, ylab = 'Actual difference between sale and model price', xlab = 'Predicted difference between sale and model price, based on characteristics of the house', main = 'The differences that we can explain with house characteristics are tiny compared to the actual differences.')
-
