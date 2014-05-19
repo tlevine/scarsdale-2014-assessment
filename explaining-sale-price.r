@@ -31,10 +31,11 @@ comparables$model.error <- comparables$sale.price - comparables$model.estimate
 comparables$comparable.error <- comparables$sale.price - comparables$comparable.estimate
 p.errors <- ggplot(comparables) +
   aes(x = model.error, y = comparable.error, size = sale.price) +
-  geom_point() + coord_fixed() +
+  coord_fixed() +
   scale_x_continuous('Model error: Difference between sale price and the modeled value', labels = dollar) + 
   scale_y_continuous('Comparable error: Difference between the sale price and the comparable-adjusted assigned value', labels = dollar) +
   scale_size_continuous('Sale price of house', labels = dollar) +
   geom_abline(slope = 1, color = 'red') + geom_abline(slope = -1, color = 'red') +
   annotate('text', label = 'Model estimate\nis better.', y = c(-1e6, 1e6), x = 0, color = 'red') +
-  annotate('text', label = 'Comparable estimate\nis better.', x = c(-1e6, 1e6), y = 0, color = 'red')
+  annotate('text', label = 'Comparable estimate\nis better.', x = c(-1e6, 1e6), y = 0, color = 'red') +
+  geom_point()
