@@ -15,6 +15,8 @@ if (!('comparables' %in% ls())) {
 
 comparables.vars <- melt(comparables, id.vars = 'PROP_NBR')
 
+
+# Exploring
 p1 <- ggplot(comparables) + aes(x = SALE_PRICE) + geom_histogram()
 p2 <- ggplot(comparables) + aes(x = MODEL_EST) + geom_histogram()
 p3 <- ggplot(comparables) + aes(x = (SALE_PRICE - MODEL_EST)) + geom_histogram() +
@@ -28,3 +30,18 @@ p5 <- ggplot(comparables.vars) +
   facet_wrap(~ variable, ncol = 1) +
   geom_histogram() +
   scale_x_continuous(labels = dollar, breaks = seq(-1e7, 1e7, 1e6))
+
+
+# 1. What is the r^2 value of their model?
+
+
+
+
+
+# 2. Does their model fit the data well?
+
+
+
+
+
+# 3. How are the sale prices and model estimates distributed?
