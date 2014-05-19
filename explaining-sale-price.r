@@ -29,3 +29,9 @@ comparables$model.estimate <- rowMeans(comparables[model.estimate.columns])
 # The two differences we're comparing
 comparables$model.error <- comparables$sale.price - comparables$model.estimate
 comparables$comparable.error <- comparables$sale.price - comparables$comparable.estimate
+p.errors <- ggplot(comparables) +
+  aes(x = model.error, y = comparable.error, size = sale.price) +
+  geom_point() + coord_fixed() +
+  scale_x_continuous('Model error: Difference between sale price and the modeled value', labels = dollar) + 
+  scale_y_continuous('Comparable error: Difference between the sale price and the comparable-adjusted assigned value', labels = dollar) +
+  scale_size_continuous('Sale price of house', labels = dollar)
