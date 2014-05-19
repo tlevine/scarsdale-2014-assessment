@@ -27,4 +27,4 @@ p5 <- ggplot(comparables.vars) +
   aes(x = value) +
   facet_wrap(~ variable, ncol = 1) +
   geom_histogram() +
-  scale_x_continuous(labels = dollar)
+  scale_x_continuous(labels = dollar, breaks = seq(-1e7, 1e7, 1e6))
