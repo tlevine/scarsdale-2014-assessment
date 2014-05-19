@@ -42,3 +42,6 @@ m <- lm(SALE_MINUS_MODEL ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND, da
 plot(comparables$SALE_MINUS_MODEL ~ m$fitted.values, asp = 1, ylab = 'Actual difference between sale and model price', xlab = 'Predicted difference between sale and model price, based on characteristics of the house', main = 'The differences that we can explain with house characteristics are tiny compared to the actual differences.')
 
 
+m.2 <- lm(SALE_MINUS_MODEL ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND,
+  data = subset(comparables, SALE_MINUS_MODEL > -)
+summary(m.2)
