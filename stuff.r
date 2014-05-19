@@ -38,10 +38,9 @@ p5 <- ggplot(comparables.vars) +
   geom_histogram() +
   scale_x_continuous(labels = dollar, breaks = seq(-1e7, 1e7, 1e6))
 
+
+
+# Real stuff
 m <- lm(SALE_MINUS_MODEL ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND, data = comparables)
 plot(comparables$SALE_MINUS_MODEL ~ m$fitted.values, asp = 1, ylab = 'Actual difference between sale and model price', xlab = 'Predicted difference between sale and model price, based on characteristics of the house', main = 'The differences that we can explain with house characteristics are tiny compared to the actual differences.')
 
-
-m.2 <- lm(SALE_MINUS_MODEL ~ log(LIVING_AREA) + log(LAND_PRE_2014) + OVRL_COND,
-  data = subset(comparables, SALE_MINUS_MODEL > -)
-summary(m.2)
