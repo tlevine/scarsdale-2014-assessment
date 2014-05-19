@@ -23,7 +23,9 @@ WHERE RV_SALE_COMP.MODEL_EST IS NOT NULL
 }
 
 # Deal with the multiple model estimates
-comparables$model.estimate <- mean(comparables$model.estimate.as.subject,comparables$model.estimate.as.comparable)
+model.estimate.columns <- c('model.estimate.as.subject','model.estimate.as.comparable')
+comparables$model.estimate <- rowMeans(comparables[model.estimate.columns])
 
+# The two differences we're comparing
 comparables$model.error <- comparables$sale.price - comparables$model.estimate
 comparables$comparable.error <- comparables$sale.price - comparables$comparable.estimate
