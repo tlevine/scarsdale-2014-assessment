@@ -22,3 +22,8 @@ WHERE RV_SALE_COMP.MODEL_EST IS NOT NULL
 ;')
 }
 
+# Deal with the multiple model estimates
+comparables$model.estimate <- mean(comparables$model.estimate.as.subject,comparables$model.estimate.as.comparable)
+
+comparables$model.error <- comparables$sale.price - comparables$model.estimate
+comparables$comparable.error <- comparables$sale.price - comparables$comparable.estimate
