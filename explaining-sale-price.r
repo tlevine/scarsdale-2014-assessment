@@ -30,7 +30,7 @@ comparables$model.estimate <- rowMeans(comparables[model.estimate.columns])
 comparables$model.error <- comparables$sale.price - comparables$model.estimate
 comparables$comparable.error <- comparables$sale.price - comparables$comparable.estimate
 p.errors <- ggplot(comparables) +
-  ggtitle('Does looking at comparables help us predict sale price?') +
+  ggtitle('Does the comparables process help us predict sale price?') +
   aes(x = model.error, y = comparable.error, size = sale.price) +
   coord_fixed() +
   scale_x_continuous('Model error: Difference between sale price and the modeled value', labels = dollar) + 
@@ -51,6 +51,6 @@ p.error.differences <- ggplot(comparables) +
   ggtitle('Does looking at comparables help us predict sale price?') +
   annotate('text', label = .annotation.label, x = 3e5 * c(-1,1), y = 50, color = 'red', size = 7, hjust = c(1,0))
 
-# Test for a difference from zero
+# Test for a difference from zero on average/median
 test.1 <- t.test(abs(comparables$model.error) - abs(comparables$comparable.error))
 test.2 <- wilcox.test(abs(comparables$model.error) - abs(comparables$comparable.error))
